@@ -11,7 +11,7 @@ Things have changed from the original:
 
 
 steps to setup build environment
- - `git pull`
+ - `git clone`
  - `vagrant up`
  - `vagrant ssh`
  - `cd /vagrant/mirai`
