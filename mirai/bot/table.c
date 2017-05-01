@@ -15,7 +15,7 @@ struct table_value table[TABLE_MAX_KEYS];
 
 void table_init(void)
 {
-// removeed obfuscation
+// removed obfuscation
 // use the folowing bash magic to create domain or other things for this hexadecimal escaped nonesense
 //
 // $echo example.com | hexdump -e '1/1 "\\\x"' -e '1/1 "%.2x"'

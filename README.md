@@ -1,5 +1,41 @@
 # Mirai Botnet Client, Echo Loader and CNC source code
 
+This is a fork of jgamblin/Mirai-Source-Code. The intent is to create a clean build environment of Mirai for analysis and sandboxing.
+
+Things have changed from the original:
+- Merged Felicitychou's additions
+- setup Vagrant file
+- Removed obfuscation of table.c, so no need to run "enc" tool anymore. Added de-obfuscator to /tools/ dir.
+- modified some of the original shell scripts to install more cross compiler packages and remove build errors
+- modified build.sh to download go packages
+
+
+steps to setup build environment
+ - `git clone`
+ - `vagrant up`
+ - `vagrant ssh`
+ - `cd /vagrant/mirai`
+ - `./build.sh`
+
+Steps to create database:
+ - `cat Configure_CNC_Database.txt | mysql -u root --password=password`
+
+Start the CnC
+- make a prompt file in ./release
+- `cd ./release`
+- `sudo ./cnc`
+- `telnet localhost`
+
+After building the binaries, you'll want to deploy the built bot's to another machine for communication. I suggest the following steps:
+- Create bare linux vm (ubuntu server works)
+- join that vm to virtual box network mirai_net (see Vagrantfile )
+- drop compiled  x86 binary (rename to the magic word or it won't run right)
+- Spoof DNS. The easy version is to go `sudo python /vagrant/tools/fakedns.py` after a vagrant up (again see source and Vagrantfile)
+- Make sure your gateways are dead ended, dont do NAT or packet forwarding or any nonesense....
+
+
+# Original README.md
+
 This is the source code released from [here](http://hackforums.net/showthread.php?tid=5420472) as discussed in this [Brian Krebs Post](https://krebsonsecurity.com/2016/10/source-code-for-iot-botnet-mirai-released/).
 
 I found 
@@ -19,34 +55,3 @@ Configuring_CNC_Database.txt from [pastebin.com/86d0iL9g](http://pastebin.com/86
 Setting_Up_Cross_Compilers.sh from [pastebin.com/1rRCc3aD](http://pastebin.com/1rRCc3aD)
 
 Felicitychou
-
-Chuck:
-Merged Felicitychou's additions and setup Vagrant file.
-To setup build environment, you just need to "vagrant up"
-Also removed obfuscation of table.c, so no need to run "enc" tool anymore
-Have modified some shell scripts to install more cross compiler packages and remove errors
-modified build.sh to download go packages
-
-
-steps to setup build environment
- - `git pull`
- - `vagrant up`
- - `vagrant ssh`
- - `cd /vagrant/mirai`
- - `./build.sh`
-
-Steps to create database:
-`cat Configure_CNC_Database.txt | mysql -u root --password=password`
-
-Start the CnC
-- make a prompt file in ./release
-- `cd ./release`
-- `sudo ./cnc`
-
-To start making the CnC talking to something, after building the binaries, you'll want to have a second machine. That's why the vagrant VM has two.
-I'm not going to waste my time describing this in detail, but basically:
-1: Create bare linux vm
-2: drop compilex x86 binary
-3: make sure your running some kind of DNS spoofer and you've got your IP routing setup right (look at Vagrantfile for some inspiration)
-4: Make sure your gateways are dead ended, etc...
-
